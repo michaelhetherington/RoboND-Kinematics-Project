@@ -19,9 +19,9 @@
 
 [image1]: ./misc_images/misc1.png
 [image2]: ./misc_images/fk.png
-[image3]: ./misc_images/theta1.jpg
-[image4]: ./misc_images/theta2.jpg
-[image5]: ./misc_images/theta3.jpg
+[image3]: ./misc_images/theta1.JPG
+[image4]: ./misc_images/theta2.JPG
+[image5]: ./misc_images/theta3.JPG
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
