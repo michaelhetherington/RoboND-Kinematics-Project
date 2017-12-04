@@ -22,6 +22,11 @@
 [image3]: ./misc_images/theta1.JPG
 [image4]: ./misc_images/theta2.JPG
 [image5]: ./misc_images/theta3.JPG
+[image6]: ./misc_images/Kura_KR210_grab.jpg
+[image7]: ./misc_images/Kura_KR210_retrieve.jpg
+[image8]: ./misc_images/Kura_KR210_midflight.jpg
+[image9]: ./misc_images/Kura_KR210_placed.jpg
+[image10]: ./misc_images/Kura_KR210_placed2.jpg
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -228,6 +233,26 @@ From this extracted rotation matrix we can use Euler angles as described in the 
 ### Project Implementation
 
 #### Fill in the `IK_server.py` file with properly commented python code for calculating Inverse Kinematics based on previously performed Kinematic Analysis. Your code must guide the robot to successfully complete 8/10 pick and place cycles. Briefly discuss the code you implemented and your results. 
+
+With the code complete the simulation was run with the demo flag set to false so that the Inverse Kinetaic problem was solved by the IK_server.py code. The following images show the position of the Kura KR210 arm at various stages throughout the pick and place process.
+
+Grabbing the target object from a shelf:
+
+![alt text][image6]
+
+Retrieving the target from the shelf:
+
+![alt text][image7]
+
+Moving through the path from shelf to bin with target object tight in gripper:
+
+![alt text][image8]
+
+Placing the target object successfully within the bin:
+
+![alt text][image9]
+
+![alt text][image10]
 
 The key observations I have made are:
 
