@@ -173,7 +173,7 @@ def handle_calculate_IK(req):
             # find the rotation matrix from joint 3 to 6
             # To do this we multiply the rotation matrix from the base to the gripper (R_G) by the inverse of the
             # rotaiton matrix from joint_0 to joint_3
-            R3_6 = R0_3.inv("LU") * R_G
+            R3_6 = R0_3.transpose() * R_G
 
             # Euler angles are then extracted from the rotation matrices
             # Reference to the project walkthrough was required for this section
