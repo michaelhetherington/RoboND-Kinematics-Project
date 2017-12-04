@@ -17,6 +17,8 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from geometry_msgs.msg import Pose
 from mpmath import *
 from sympy import *
+import pickle
+import os
 
 
 def handle_calculate_IK(req):
@@ -88,28 +90,34 @@ def handle_calculate_IK(req):
             ### Your IK code here 
             # Step 1: find the rotation of the gripper
             # Generate generic rotation matrices
-            r, p, y = symbols('r p y')
+            if not os.path.exists("R_G.p"):
+                r, p, y = symbols('r p y')
         
-            R_z = Matrix([[   cos(y),   -sin(y),         0],
-                          [   sin(y),    cos(y),         0],
-                          [        0,         0,         1]]) # YAW
+                R_z = Matrix([[   cos(y),   -sin(y),         0],
+                              [   sin(y),    cos(y),         0],
+                              [        0,         0,         1]]) # YAW
     
-            R_y = Matrix([[   cos(p),         0,    sin(p)],
-                          [        0,         1,         0],
-                          [  -sin(p),         0,    cos(p)]]) # PITCH
+                R_y = Matrix([[   cos(p),         0,    sin(p)],
+                              [        0,         1,         0],
+                              [  -sin(p),         0,    cos(p)]]) # PITCH
     
-            R_x = Matrix([[        1,         0,         0],
-                          [        0,    cos(r),   -sin(r)],
-                          [        0,    sin(r),    cos(r)]]) # ROLL
+                R_x = Matrix([[        1,         0,         0],
+                              [        0,    cos(r),   -sin(r)],
+                              [        0,    sin(r),    cos(r)]]) # ROLL
 
-            # Extrinsically multiply the rotation matrices so that gripper rotation can be
-            # calculated from yaw, pitch and roll values provided by Gazebo
-            R_G = R_z * R_y * R_x
+                # Extrinsically multiply the rotation matrices so that gripper rotation can be
+                # calculated from yaw, pitch and roll values provided by Gazebo
+                R_G = R_z * R_y * R_x
 
-            # Finally, a further rotation must be applied to account for the difference
-            # between the URDF and Gazebo (world) frames
-            Rot_correction = R_z.subs(y, pi) * R_y.subs(p, -pi/2)
-            R_G = R_G * Rot_correction
+                # Finally, a further rotation must be applied to account for the difference
+                # between the URDF and Gazebo (world) frames
+                Rot_correction = R_z.subs(y, pi) * R_y.subs(p, -pi/2)
+                R_G = R_G * Rot_correction
+
+                pickle.dump(R_G, open("R_G.p", "wb"))
+
+            else:
+                R_G = pickle.load(open("R_G.p", "rb"))
 
             # Calculate rotation of gripper by substituing roll, pitch and yaw values
             # from Gazebo
